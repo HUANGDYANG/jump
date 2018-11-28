@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  //得到url中的参数
+  function getParamsWithUrl(url) {
+    let args = url.split('?')
+    if(args[0] === url) {
+      return ''
+    } else {
+      let arr = args[1].split('&')
+      let obj = {}
+      for(let i=0 ; i<arr.length ; i++) {
+        let arg = arr[i].split('=')
+        obj[arg[0]] = arg[1]
+      }
+      return obj
+    }
+  }
+  var paramObj = getParamsWithUrl('http://www.itlike.com')
+  // var paramObj = getParamsWithUrl('http://www.itlike.com?id=1022&name=撩课&age=1')
+  console.log(paramObj['name']);
+</script>
+</body>
+</html>

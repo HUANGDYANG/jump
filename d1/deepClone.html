@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function deepClone(obj) {
+      let newObj = obj instanceof Array ? [] : {}
+      for(let key in obj) {
+        typeof obj[key] === Object ? deepClone(obj[key]) : newObj[key] = obj[key]
+      }
+      return newObj
+    }
+
+    const obj =
+    { "data": [
+      {
+        "delivery_time": "2017-08-07 15:09:53",
+        "sell_record_code": "1705110288575",
+        "order_remark": "已开票",
+        "pay_status": "0",
+        "detail_list": [
+          {
+            "deal_code": "201703250088",
+            "sell_record_code": "1705110288575",
+            "spec1_code": "-350f",
+            "is_gift": "0"
+          }
+        ],
+        "filter": {
+          "page_size": 10,
+          "record_count": "178",
+          "page": 1,
+          "start_notice_time": "2017-08-01 00:00:00",
+          "end_notice_time": "2017-08-10 23:59:59",
+          "order_status": "1",
+          "page_count": 18
+        }
+      }]
+    }
+
+    var cloneObj = deepClone(obj)
+    console.log(cloneObj);
+    console.log(obj);
+    console.log(Object.is(cloneObj, obj));
+</script>
+</body>
+</html>
