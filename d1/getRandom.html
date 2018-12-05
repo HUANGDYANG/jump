@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+  function getRandom(min, max) {
+    let temp = Math.floor(Math.random() * (max - min + 1) + min)
+    // console.log(temp);
+    return temp
+  }
+
+  // getRandom(3, 4)
+
+  arr = [1, 2, 3, 4, 5, 6, 7]
+
+  //打乱数组
+  function shuffle(arr) {
+    let _arr = arr.slice()
+    for(let i=0 ; i<_arr.length ; i++) {
+      let j = getRandom(0,i)
+      let t = _arr[j]
+      _arr[j] = _arr[i]
+      _arr[i] = t
+    }
+    return _arr
+  }
+
+  console.log(shuffle(arr));
+</script>
+</body>
+</html>
