@@ -7,7 +7,7 @@
 <body>
 <script>
   function getRandom(min, max) {
-    let temp = Math.floor(Math.random() * (max - min + 1) + min)
+    let temp = Math.ceil(Math.random() * (max - min) + min)
     // console.log(temp);
     return temp
   }

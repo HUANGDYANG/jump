@@ -6,9 +6,33 @@
 </head>
 <body>
 <script>
- var a = [1]
- console.log(a);
- console.log(a.prototype);
+  let addWages = (num) => {
+    return new Promise(
+        (resolve, reject) => {
+          setTimeout(function () {
+            if (num <= 555) {
+              resolve('同意加薪' + num);
+            } else {
+              reject('不同意加薪');
+            }
+          }, 1000)
+        })
+  };
+
+  addWages(550).then(data => {
+    console.log(data);
+    return addWages(556)
+  }).then(data => {
+    console.log(data);
+  }).catch(err => {
+    console.log(err);
+  });
+
+  Promise.resolve('成功获取结果')
+      .then(data => {
+        console.log(data);
+      });
+
 </script>
 </body>
 </html>
