@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+function findMaxChat(str) {
+    if(str.length === 1) {
+        return str
+    }
+    // 巧用对象
+    let charObj = {}
+    for(let i=0 ;i<str.length; i++) {
+        if(!charObj[str.charAt(i)]) {
+            charObj[str.charAt(i)] = 1
+        } else {
+            charObj[str.charAt(i)] ++
+        }
+    }
+    let maxChar = ''
+    let maxValue = 0
+    for(let k in charObj) {
+        if(charObj[k]>maxValue) {
+            maxValue = charObj[k]
+            maxChar = k
+        }
+    }
+    return {maxValue,maxChar}
+}
+let {maxValue,maxChar} = findMaxChat('qwertyqqer')
+console.log(maxChar);
+console.log(maxValue);
+
+</script>
+</body>
+</html>

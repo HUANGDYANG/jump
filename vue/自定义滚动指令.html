@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+    <style>
+        .box {
+            transition: 1.5s all cubic-bezier(0.39, 0.575, 0.565, 1);
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <h1 class="centered">Scroll me</h1>
+    <div
+            v-scroll="handleScroll"
+            class="box"
+    >
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+        <p>Lorem ipsum dolor sit amet, </p>
+    </div>
+</div>
+
+<script>
+    Vue.directive('scroll', {
+        inserted: function (el, binding) {
+            // evt是原生scroll事件的事件对象，此函数用于回调
+            let f = function (evt) {
+                // 如果binding.value返回真，则移除滚动监听，binding.value(evt, el)是本例子中的handleScroll方法
+                // console.log(binding.value(evt, el));
+                if (binding.value(evt, el)) {
+                    // debugger
+                    window.removeEventListener('scroll', f)
+                }
+            }
+
+            // 添加滚动监听，回调函数为f
+            window.addEventListener('scroll', f)
+        }
+    })
+
+    // main app
+    new Vue({
+        el: '#app',
+        // data() {
+        //     return {
+        //         handleScroll:'nihao',
+        //     }
+        // },
+        methods: {
+            // 为什么需要2个参数？应该是底层要求的，详见上面的代码
+            handleScroll: function (evt, el) {
+                if (window.scrollY > 50) {
+                    el.setAttribute(
+                        'style',
+                        'opacity: 1; transform: translate3d(0, -10px, 0) scale(1.5,1.5)'
+                    )
+                    el.style.color= 'red'
+                }
+                return window.scrollY > 100
+            }
+        }
+    })
+</script>
+</body>
+</html>

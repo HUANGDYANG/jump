@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function is_balance(str) {
+        const [first, ...rest] = str
+        const stack = [first]
+        while (rest.length > 0) {
+            const c = stack[stack.length - 1] //取最后入的
+            const n = rest.shift() //取头部的
+            if (!match(n, c)) {
+                stack.push(n)
+            } else {
+                stack.pop()
+            }
+        }
+        return stack.length === 0
+    }
+
+    function match(n, c) {
+        return (c === '[' && n === ']') || (c === '(' && n === ')')
+    }
+
+    console.log(is_balance('(([]))'));
+    console.log(is_balance('(([])'));
+</script>
+</body>
+</html>

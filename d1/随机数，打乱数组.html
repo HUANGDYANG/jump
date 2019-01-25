@@ -6,7 +6,9 @@
 </head>
 <body>
 <script>
-  function getRandom(min, max) {
+    // 获取指定范围的随机数
+
+    function getRandom(min, max) {
     let temp = Math.ceil(Math.random() * (max - min) + min)
     // console.log(temp);
     return temp
@@ -16,11 +18,18 @@
 
   arr = [1, 2, 3, 4, 5, 6, 7]
 
+  // 随机获取数组中的数
+  function getRandomFromArr(arr) {
+      return arr[Math.floor(Math.random()*arr.length)]
+  }
+
+  console.log('随机获取数组的数:',getRandomFromArr(arr));
+
   //打乱数组
   function shuffle(arr) {
     let _arr = arr.slice()
     for(let i=0 ; i<_arr.length ; i++) {
-      let j = getRandom(0,i)
+      let j = 随机数(0,i)
       let t = _arr[j]
       _arr[j] = _arr[i]
       _arr[i] = t
@@ -29,6 +38,9 @@
   }
 
   console.log(shuffle(arr));
+
+    arr.sort(function(){return Math.random()-0.5});
+    console.log('打乱数组2:',arr);
 </script>
 </body>
 </html>

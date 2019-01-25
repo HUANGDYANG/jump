@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+function f(n) {
+    for(let i=2 ; i<100 ; i++) { // 1非质数非合数
+        let flag = true
+        for(let j=2 ; j<i ; j++) {
+            if(i % j==0) {
+                flag = false
+                break
+            }
+        }
+        if(flag) {
+            console.log(i)
+        }
+    }
+}
+f()
+</script>
+</body>
+</html>

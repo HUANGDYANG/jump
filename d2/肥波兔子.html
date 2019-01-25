@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    function fib(n) {
+        if (n == 0 || n == 1) {
+            return 1
+        }
+        return fib(n - 1) + fib(n - 2)
+    }
+
+    function fibCount(n) {
+       let count = 0
+        console.log(fib(5));
+       for(let i=0 ; i<=n ; i++) {
+           count+=fib(i)
+       }
+        console.log(count);
+    }
+fibCount(1)
+
+
+</script>
+</body>
+</html>

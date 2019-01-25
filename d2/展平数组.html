@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let arr = [[1, 2], 3, [[4], 5]]
+
+    function flatten(arr) {
+        // console.log(...arr);
+        return [].concat(
+            // ...运算是map之后进行的,map函数返回数组
+            ...arr.map(x => {
+                    // debugger
+                    return Array.isArray(x) ? flatten(x) : x
+                }
+            )
+        )
+    }
+
+    console.log(flatten(arr));
+</script>
+</body>
+</html>

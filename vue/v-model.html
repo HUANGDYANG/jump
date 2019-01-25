@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+<div id="components-demo">
+    <button-counter></button-counter>
+    <!--{{count}}-->
+    <br>
+    <base-checkbox v-model="lovingVue"></base-checkbox>
+    组件上使用v-model:{{lovingVue}}
+    <br>
+    <input :value="searchText"
+            @input="searchText = $event.target.value"
+    >
+    v-model实现:{{searchText}}
+</div>
+
+<script>
+    // 创建个组件
+    Vue.component('button-counter', {
+        data: function () {
+            return {
+                count: 0,
+            }
+        },
+        template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+    })
+ // 组件上的v-model用法
+    Vue.component('base-checkbox', {
+        model: {
+            prop: 'checked',
+            event: 'change'
+        },
+        props: {
+            checked: Boolean
+        },
+        template: `
+    <input
+      type="checkbox"
+      v-bind:checked="checked"
+      v-on:change="$emit('change', $event.target.checked)"
+    >
+  `
+    })
+    // 挂载实例
+    new Vue({
+        el: '#components-demo' ,
+        data() {
+            return {
+                searchText: 'nihao',
+                lovingVue:true
+            }
+        }
+    })
+</script>
+</body>
+</html>
