@@ -7,9 +7,11 @@
 <body>
 <script>
     function deepClone(obj) {
-      let newObj = obj instanceof Array ? [] : {}
+        // debugger
+
+        let newObj = obj instanceof Array ? [] : {}
       for(let key in obj) {
-        typeof obj[key] === Object ? deepClone(obj[key]) : newObj[key] = obj[key]
+       newObj[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key]
       }
       return newObj
     }
