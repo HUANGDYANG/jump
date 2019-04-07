@@ -4,30 +4,43 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        .parent{
-            width:10%;
-            height:400px;
-            background:#666;
-            position:relative;
-        }
-        .children{
-            position:absolute;
-            top:50%;
-            left:50%;
-            background:red;
-            transform:translate(-50%,-50%);
-        }
+
 
     </style>
 </head>
 
 <body>
 
-<div class="parent">
-    <div class="children">实现未知宽高元素垂直居中的方法1：通过定位和transform来实现</div>
-</div>
 <script>
 
+    Array.prototype._map = function(fn,context) {
+
+        var temp = [];
+        if(typeof fn == 'function') {
+            var k = 0;
+            var len = this.length;
+            // 封装for循环过程
+            for(; k < len; k++) {
+                // 将每一项的运算操作丢进fn里，利用call方法指定fn的this指向与具体参数
+                // debugger
+                temp.push(fn.call(context, this[k]))
+                debugger
+            }
+        } else {
+            console.error('TypeError: '+ fn +' is not a function.');
+        }
+
+        // 返回每一项运算结果组成的新数组
+        return temp;
+    }
+
+    var newArr = [1, 2, 3, 4]._map(function(item,i) {
+        console.log(i);
+        // debugger
+        return item + 1;
+    })
+
+    console.log(newArr);
 </script>
 </body>
 </html>

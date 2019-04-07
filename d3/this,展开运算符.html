@@ -10,11 +10,15 @@
     const person = {
         name1: 'tom',
         getName: () => {
-            console.log(this); // 箭头函数指向上下文，window
+            console.log('箭头函数this',this); // 箭头函数指向上下文，window
             return this.name1
+        },
+        getName2:function () {
+            console.log('普通函数this',this);   //指向调用者
         }
     }
     console.log(person.getName());
+    person.getName2()
 
     const props = {
         size: 1,
