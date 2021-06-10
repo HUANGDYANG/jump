@@ -1,36 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<script>
-    function deepClone(obj) {
-        // debugger
 
-        let newObj = obj instanceof Array ? [] : {}
-      for(let key in obj) {
-       newObj[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key]
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<body>
+  <script>
+    function deepClone(obj) {
+      // debugger
+
+      let newObj = obj instanceof Array ? [] : {}
+      for (let key in obj) {
+        newObj[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key]
       }
       return newObj
     }
 
-    const obj =
-    { "data": [
-      {
+    function deepClone1(obj) {
+      var _obj = JSON.stringify(obj),
+        objClone = JSON.parse(_obj);
+      return objClone;
+    }
+    const obj = {
+      "data": [{
         "delivery_time": "2017-08-07 15:09:53",
         "sell_record_code": "1705110288575",
         "order_remark": "已开票",
         "pay_status": "0",
-        "detail_list": [
-          {
-            "deal_code": "201703250088",
-            "sell_record_code": "1705110288575",
-            "spec1_code": "-350f",
-            "is_gift": "0"
-          }
-        ],
+        "detail_list": [{
+          "deal_code": "201703250088",
+          "sell_record_code": "1705110288575",
+          "spec1_code": "-350f",
+          "is_gift": "0"
+        }],
         "filter": {
           "page_size": 10,
           "record_count": "178",
@@ -47,6 +51,7 @@
     console.log(cloneObj);
     console.log(obj);
     console.log(Object.is(cloneObj, obj));
-</script>
+  </script>
 </body>
+
 </html>
