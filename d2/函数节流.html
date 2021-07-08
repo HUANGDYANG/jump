@@ -1,51 +1,73 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-06-10 08:53:12
+ * @LastEditTime: 2021-07-03 15:50:20
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \jump\d2\函数节流.html
+-->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        body {
-            height: 2000px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    body {
+      height: 2000px;
+    }
+  </style>
 </head>
+
 <body>
-<div></div>
-<script>
-  // 函数防抖
-    function debounce(func, delay = 600, timer = null) {
-        return (...args) => {
-            // debugger
-            // 这里 args是滚动的事件对象
-            clearTimeout(timer)
-            timer = setTimeout(() => {
-                func(...args)
-            }, delay)
-        }
+  <div></div>
+  <script>
+    // 函数防抖
+    function debounce(func, delay = 610, timer = null) {
+      return (...args) => {
+        debugger
+        // 这里 args是滚动的事件对象
+        clearTimeout(timer)
+
+        timer = setTimeout(() => {
+          func(...args)
+        }, delay)
+        // console.log(timer);
+      }
     }
 
-    window.addEventListener('scroll', debounce(console.log))
+    // window.addEventListener('scroll', debounce(console.log))
+
+    // console.log('函数防抖测试：这样子不防抖');
+    // for (let i = 0; i < 4; i++) {
+    //   debounce(console.log)(i)
+    // }
 
     //函数节流
     function throttle(func, delay = 60) {
-        if (typeof func !== 'function') {
-            throw('参数必须是函数')
+      if (typeof func !== 'function') {
+        throw ('参数必须是函数')
+      }
+      let lock = false
+      return (...args) => {
+        // debugger
+        if (lock) {
+          return
         }
-        let lock = false
-        return (...args) => {
-            // debugger
-            if (lock) {
-                return
-            }
-            func(...args)
-            lock = true
-            setTimeout(() => {
-                lock = false
-            }, delay)
-        }
+        func(...args)
+        lock = true
+        setTimeout(() => {
+          lock = false
+        }, delay)
+      }
     }
 
-    window.addEventListener('scroll', throttle((e) => console.log(e, '函数节流'), 6000))
-</script>
+    // window.addEventListener('scroll', throttle((e) => console.log(e, '函数节流'), 6000))
+    console.log('节流测试：');
+    // for (var i = 0; i < 4; i++) {
+    //   throttle(console.log)(i)
+    // }
+  </script>
 </body>
+
 </html>
