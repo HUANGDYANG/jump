@@ -1,0 +1,80 @@
+<!--
+ * @Author: HUANGDYANG
+ * @Date: 2021-07-12 16:52:05
+ * @LastEditTime: 2021-07-13 08:30:57
+ * @LastEditors: HUANGDYANG
+ * @Description: 
+ * @FilePath: \jump\你管这叫博客？\循环\foreach.html
+-->
+<script>
+  // 1. forEach不支持break
+
+  // 大家都知道， 在使用for循环时可以使用break跳出循环， 比如我希望找到数组中符合条件的第一个元素就跳出循环， 这对于优化数组遍历是非常棒的。 很遗憾， forEach并不支持break操作， 使用break会导致报错。
+
+  let arr = [1, 2, 3, 4],
+    i = 0,
+    length = arr.length;
+  for (; i < length; i++) {
+    console.log(arr[i]); //1,2
+    if (arr[i] === 2) {
+      break;
+    };
+  };
+
+  let arr = [1, 2, 3, 4]
+  arr.forEach((self, index) => {
+    console.log(self);
+    if (self === 2) {
+      break; //报错
+    };
+  });
+  // 那forEach能不能跳出循环呢？ 可以， 不过不是使用break， 而是结合try catch操作， 有兴趣可是看看博主这篇文章 js forEach跳出循环
+
+  // 2. forEach中使用return无效
+
+  // 首先需要确定的， 直接再for循环中使用return会报错（ 函数中使用for可以return）， forEach中使用return不会报错， 但rerutn并不会生效， 我们来看个例子：
+
+  let arr = [1, 2, 3, 4];
+
+  function find(array, num) {
+    array.forEach((self, index) => {
+      if (self === num) {
+        return index;
+      };
+    });
+  };
+  let index = find(arr, 2); // undefined
+  // 上述代码想要找到数字2在数组中的索引， 但return并不会起到终止代码运行并返回值的作用。
+
+  // 当然如果我们真的要用return返回某个值， 那就只能将return操作放在函数中， 而不是forEach循环中， 像这样：
+
+
+  function find(array, num) {
+    let _index;
+    array.forEach((self, index) => {
+      if (self === num) {
+        _index = index;
+      };
+    });
+    return _index;
+  };
+  // 3. forEach删除自身元素index不会被重置
+
+  // 还记得文章开头的问题吗， 那段代码其实只会执行一次， 数组也不会被删除干净， 这是因为forEach在遍历跑完回调函数后， 会隐性让index自增， 像这样：
+  let arr = [1, 2, 3, 4]
+  arr.forEach((item, index) => {
+    arr.splice(index, 1);
+    console.log(1);
+    //这里隐性让index自增加1
+    index++;
+  });
+  // 当第一次遍历结束， 此时数组为[2] 而index变成了1， 此时数组最大索引只是0， 不满足条件， 所以跳出了循环。
+
+  // 灵机一动， 有没有什么办法让此时的forEach不跳出循环呢， 当然有， 使用ES6的拓展运算符。
+
+  [...arr].forEach((item, index) => {
+    arr.splice(index, 1);
+    console.log(1);
+  });
+  // 通过拓展运算符重置数组arr， 达到不跳出循环的目的， 你会发现内部确实执行了两次， 很遗憾的是index依旧没被重置， 所以数组arr还是无法在遍历的同时删空自己。
+</script>
