@@ -8,6 +8,57 @@
 
 <body>
   <script>
+    let treedata = [{
+        "id": 133,
+        "name": "第三方补货公司",
+        "parentId": 1,
+        "parentName": '',
+        children: [{
+          "id": 1,
+          "name": "总部",
+          "parentId": 0,
+          "parentName": ''
+        }]
+      },
+      {
+        "id": 132,
+        "name": "测试中",
+        "parentId": 1,
+        "parentName": '',
+        children: [{
+            "id": 131,
+            "name": "子公司",
+            "parentId": 104,
+            "parentName": ''
+          },
+          {
+            "id": 130,
+            "name": "测试",
+            "parentId": 1,
+            "parentName": ''
+          },
+        ]
+      }
+
+
+    ];
+    // 树转jaon Arr
+    function jsonToArray(nodes) {
+      var r = [];
+      if (Array.isArray(nodes)) {
+        for (var i = 0, l = nodes.length; i < l; i++) {
+          r.push(nodes[i]); // 取每项数据放入一个新数组
+          if (Array.isArray(nodes[i]["children"]) && nodes[i]["children"].length > 0)
+            // 若存在children则递归调用，把数据拼接到新数组中，并且删除该children
+            r = r.concat(jsonToArray(nodes[i]["children"]));
+          delete nodes[i]["children"]
+        }
+      }
+      return r;
+    }
+    console.log(jsonToArray(treedata));
+
+
     // 时间长，空间少的算法，同样修改了原数组对象
     function changeTree(data) {
       if (data.length > 0) {
