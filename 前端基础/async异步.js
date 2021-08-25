@@ -1,24 +1,34 @@
+/*
+ * @Author: HUANGDYANG
+ * @Date: 2021-06-10 08:53:12
+ * @LastEditTime: 2021-07-28 08:53:14
+ * @LastEditors: HUANGDYANG
+ * @Description: 
+ * @FilePath: \jump\d3\async异步.js
+ */
 function getone(x) {
   if (x == 1) {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       setTimeout(() => {
         resolve('one data')
-      }, 200)
+      }, 2000)
     })
   } else if (x == 2) {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       setTimeout(() => {
         resolve('two data')
-      }, 100)
+      }, 2000)
     })
   }
 }
 
 const arr = [1, 2]
 const reslut = []
-function FEtest() {
+
+async function FEtest() {
   arr.forEach(async element => {
-    console.log(element)
+
+    // console.log(element)
     const str = await getone(element)
     reslut.push(str)
     console.log(reslut)
@@ -29,13 +39,14 @@ const resulttwo = []
 async function fortest() {
   for (let i = 1; i <= 2; i++) {
     const str = await getone(i)
+    console.log(str);
     resulttwo.push(str)
   }
 
-  console.log(resulttwo)
+  // console.log(resulttwo)
 }
 
-// fortest()
+fortest()
 
 const resultthree = []
 async function mapTest() {
@@ -50,4 +61,4 @@ async function mapTest() {
   }
   console.log(resultthree)
 }
-mapTest()
+// mapTest()

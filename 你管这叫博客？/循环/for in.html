@@ -1,7 +1,7 @@
 <!--
  * @Author: HUANGDYANG
  * @Date: 2021-07-13 09:12:45
- * @LastEditTime: 2021-07-13 09:21:17
+ * @LastEditTime: 2021-08-04 15:53:00
  * @LastEditors: HUANGDYANG
  * @Description: 
  * @FilePath: \jump\你管这叫博客？\循环\for in.html
@@ -10,25 +10,16 @@
   // 1.for…in循环会遍历数组对象的原型链中所有的可枚举属性， hasOwnProperty函数来避免这一问题：
   Array.prototype.voice = "James Earl Jones";
 
-  var tMinus = [
-    "Two",
-    "One",
-    "Blast off!"
-  ];
+  var tMinus = ["Two", "One", "Blast off!"];
 
   var countdown = "";
-
   for (var step in tMinus) {
     countdown += tMinus[step] + "\n";
   }
 
   console.log(countdown);
   // 2.for…in循环除了访问数组元素以外，还会访问其它的可遍历属性。
-  var tMinus = [
-    "Two",
-    "One",
-    "Blast off!"
-  ];
+  var tMinus = ["Two", "One", "Blast off!"];
 
   tMinus.announcer = "Morgan Freeman";
 
@@ -42,7 +33,8 @@
 
   console.log(countdown);
   // 3,当你需要遍历数组元素的时候，应使用for循环或者数组对象的内置迭代函数（如forEach、map等），而不是for…in循环。
-  for (var index in myArray) { // 千万别这样做
+  for (var index in myArray) {
+    // 千万别这样做
     console.log(myArray[index]);
   }
   // 在这段代码中，赋给index的值不是实际的数字，而是字符串“0”、“1”、“2”，此时很可能在无意之间进行字符串算数计算，例如：“2” + 1 == “21”，这给编码过程带来极大的不便。
