@@ -1,0 +1,19 @@
+<script>
+  var curring = function (fn) {
+    var arg = [];
+    return function () {
+      [].push.apply(arg, arguments);
+      return fn.apply(this, arg);
+    };
+  };
+  function cost() {
+    var money = 0;
+    for (var i = 0; i < arguments.length; i++) {
+      money += arguments[i];
+    }
+    return money;
+  }
+  var test = curring(cost);
+  console.log(test(100));
+  // console.log(test());
+</script>

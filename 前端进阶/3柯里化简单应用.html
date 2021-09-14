@@ -9,13 +9,16 @@
       function createCurry(func, args) {
         var arity = func.length;
         var args = args || [];
-
+        debugger;
         return function () {
           var _args = [].slice.call(arguments);
+          // 收集参数
           [].push.apply(_args, args);
+          debugger;
 
           // 如果参数个数小于最初的func.length，则递归调用，继续收集参数
           if (_args.length < arity) {
+            // 递归，传入之前的参数
             return createCurry.call(this, func, _args);
           }
 
@@ -29,9 +32,9 @@
       var _check = createCurry(check);
 
       var checkPhone = _check(/^1[34578]\d{9}$/);
-      var checkEmail = _check(/^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/);
-      console.log(checkPhone("183888888"));   //false
-      console.log(checkEmail("xxxxx@test.com"));   /true
+      // var checkEmail = _check(/^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/);
+      console.log(checkPhone("183888888")); //false
+      // console.log(checkEmail("xxxxx@test.com")); //true
     </script>
   </body>
 </html>

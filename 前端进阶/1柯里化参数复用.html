@@ -1,0 +1,21 @@
+<script>
+  function uri_curring(protocol) {
+    return function (hostname, pathname) {
+      return `${protocol}${hostname}${pathname}`;
+    };
+  }
+  const uri_https = uri_curring("https://");
+  // protocol参数复用了
+  const uri2 = uri_https("www.baidu.com", "/我是谁");
+  console.log("uri2: ", uri2);
+
+  const nameList = [
+    { mid: "11", data: 22 },
+    { mid: "111", data: 22 },
+    { mid: "1111", data: 22 },
+  ];
+  const curring = (name) => (element) => element[name];
+  const name_mid = curring("mid");
+  console.log(name_mid);
+  console.log(nameList.map(name_mid));
+</script>

@@ -1,46 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-    <style>
+    <style></style>
+  </head>
 
+  <body>
+    <script>
+      // demo02
+      console.log("golb1");
 
-    </style>
-</head>
+      setTimeout(function () {
+        console.log("timeout1");
+        process.nextTick(function () {
+          console.log("timeout1_nextTick");
+        });
+        new Promise(function (resolve) {
+          console.log("timeout1_promise");
+          resolve();
+        }).then(function () {
+          console.log("timeout1_then");
+        });
+      });
 
-<body>
+      setImmediate(function () {
+        console.log("immediate1");
+        process.nextTick(function () {
+          console.log("immediate1_nextTick");
+        });
+        new Promise(function (resolve) {
+          console.log("immediate1_promise");
+          resolve();
+        }).then(function () {
+          console.log("immediate1_then");
+        });
+      });
 
-<script>
+      process.nextTick(function () {
+        console.log("glob1_nextTick");
+      });
+      new Promise(function (resolve) {
+        console.log("glob1_promise");
+        resolve();
+      }).then(function () {
+        console.log("glob1_then");
+      });
 
-    Array.prototype._map = function(fn,context) {
+      setTimeout(function () {
+        console.log("timeout2");
+        process.nextTick(function () {
+          console.log("timeout2_nextTick");
+        });
+        new Promise(function (resolve) {
+          console.log("timeout2_promise");
+          resolve();
+        }).then(function () {
+          console.log("timeout2_then");
+        });
+      });
 
-        var temp = [];
-        if(typeof fn == 'function') {
-            var k = 0;
-            var len = this.length;
-            // 封装for循环过程
-            for(; k < len; k++) {
-                // 将每一项的运算操作丢进fn里，利用call方法指定fn的this指向与具体参数
-                // debugger
-                temp.push(fn.call(context, this[k]))
-                debugger
-            }
-        } else {
-            console.error('TypeError: '+ fn +' is not a function.');
-        }
+      process.nextTick(function () {
+        console.log("glob2_nextTick");
+      });
+      new Promise(function (resolve) {
+        console.log("glob2_promise");
+        resolve();
+      }).then(function () {
+        console.log("glob2_then");
+      });
 
-        // 返回每一项运算结果组成的新数组
-        return temp;
-    }
-
-    var newArr = [1, 2, 3, 4]._map(function(item,i) {
-        console.log(i);
-        // debugger
-        return item + 1;
-    })
-
-    console.log(newArr);
-</script>
-</body>
+      setImmediate(function () {
+        console.log("immediate2");
+        process.nextTick(function () {
+          console.log("immediate2_nextTick");
+        });
+        new Promise(function (resolve) {
+          console.log("immediate2_promise");
+          resolve();
+        }).then(function () {
+          console.log("immediate2_then");
+        });
+      });
+    </script>
+  </body>
 </html>
