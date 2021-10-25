@@ -1,0 +1,26 @@
+<!--
+ * @Author: HUANGDYANG
+ * @Date: 2021-10-19 09:39:06
+ * @LastEditTime: 2021-10-19 10:22:51
+ * @LastEditors: HUANGDYANG
+ * @Description: 
+ Singleton 函数返回的总是同一个对象(最先初始化的那个)
+ * @FilePath: \jump\设计模式\Singleton.html
+-->
+<script>
+  var Singleton = (function () {
+    var Singleton = null;
+    function init(x) {
+      Singleton = { x };
+    }
+    return function (x = 1) {
+      if (!Singleton) {
+        init(x);
+      }
+      return Singleton;
+    };
+  })();
+  var a = Singleton(111);
+  var b = Singleton(1);
+  console.log(b); //111
+</script>
