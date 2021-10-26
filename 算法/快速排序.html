@@ -1,34 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Title</title>
 </head>
+
 <body>
-<script>
-  let arr = [2, 3, 1, 6, 5, 4, 8, 7];
+  <script>
+    let arr = [2, 3, 1, 6, 5, 4, 8, 7];
 
-  function quickSort(arr) {
-    // 必须加
-    if (arr.length === 0) {
-      return []
-    }
-    let l = [];
-    let r = [];
-    let index = Math.floor(arr.length / 2);
-    let c = arr.splice(index, 1);
-    for (let i = 0; i < arr.length; i++) {
-      if (c > arr[i]) {
-        l.push(arr[i])
-      } else {
-        r.push(arr[i])
+    function quickSort(arr) {
+      // 必须加
+      if (arr.length === 0) {
+        return []
       }
+      let l = [];
+      let r = [];
+      let index = Math.floor(arr.length / 2);
+      let c = arr.splice(index, 1);
+      for (let i = 0; i < arr.length; i++) {
+        if (c > arr[i]) {
+          l.push(arr[i])
+        } else {
+          r.push(arr[i])
+        }
+      }
+
+      return quickSort(l).concat(c, quickSort(r))
     }
 
-    return quickSort(l).concat(c, quickSort(r))
-  }
-
-  console.log(quickSort(arr));
-</script>
+    console.log(quickSort(arr));
+  </script>
 </body>
+
 </html>
