@@ -8,7 +8,9 @@
 
 <body>
   <script>
+    // 好理解 比较耗时的快速排序
     let arr = [2, 3, 1, 6, 5, 4, 8, 7];
+    let arr_new = [2, 3, 1, 6, 5, 4, 8, 7];
 
     function quickSort(arr) {
       // 必须加
@@ -30,7 +32,88 @@
       return quickSort(l).concat(c, quickSort(r))
     }
 
-    console.log(quickSort(arr));
+    // console.log(quickSort(arr));
+
+    // 快排改进——黄佳新
+    var devide = function (array, start, end) {
+      if (start >= end) return array;
+      var baseIndex = Math.floor((start + end) / 2), // 基数索引
+        i = start,
+        j = end;
+
+      while (i <= j) {
+        while (array[i] < array[baseIndex]) {
+          i++;
+        }
+        while (array[j] > array[baseIndex]) {
+          j--;
+        }
+
+        if (i <= j) {
+          var temp = array[i];
+          array[i] = array[j];
+          array[j] = temp;
+          i++;
+          j--;
+        }
+      }
+      return i;
+    }
+
+    var quickSort = function (array, start, end) {
+      if (array.length < 1) {
+        return array;
+      }
+      var index = devide(array, start, end);
+      if (start < index - 1) {
+        quickSort(array, start, index - 1);
+      }
+      if (end > index) {
+        quickSort(array, index, end);
+      }
+
+      return array;
+    }
+
+    console.log(quickSort(arr, 0, arr.length - 1));
+    // 普遍实现
+    var quickSort_New = function (ary, left, right) {
+      if (left >= right) {
+        return ary;
+      }
+
+      var i = left,
+        j = right;
+      base = ary[left];
+
+      while (i < j) {
+        // 从右边起，寻找比基数小的数
+        while (i < j && ary[j] >= base) {
+          j--;
+        }
+
+        // 从左边起，寻找比基数大的数
+        while (i < j && ary[i] <= base) {
+          i++
+        }
+
+        if (i < j) {
+          var temp = ary[i];
+          ary[i] = ary[j];
+          ary[j] = temp;
+        }
+      }
+
+      ary[left] = ary[i];
+      ary[i] = base;
+
+      quickSort_New(ary, left, i - 1);
+      quickSort_New(ary, i + 1, right);
+
+      return ary;
+    }
+
+    console.log(quickSort_New(arr_new, 0, arr_new.length - 1));
   </script>
 </body>
 

@@ -76,36 +76,53 @@
         }
       }
 
-
       ArrayList.prototype.shellSort = function () {
-        // 1.获取数组的长度
         var length = this.array.length
-
-        // 2.根据长度计算增量
         var gap = Math.floor(length / 2)
 
-        // 3.增量不断变量小, 大于0就继续排序
         while (gap > 0) {
-          // 4.实现插入排序
-          for (var i = gap; i < length; i++) {
-            // 4.1.保存临时变量
+          for (let i = gap; i < length; i++) {
             var j = i
             var temp = this.array[i]
 
-            // 4.2.插入排序的内存循环
-            while (j > gap - 1 && this.array[j - gap] > temp) {
+            while (j - gap >= 0 && this.array[j - gap] > temp) {
               this.array[j] = this.array[j - gap]
               j -= gap
             }
-
-            // 4.3.将选出的j位置设置为temp
             this.array[j] = temp
           }
-
-          // 5.重新计算新的间隔
           gap = Math.floor(gap / 2)
         }
       }
+      // ArrayList.prototype.shellSort = function () {
+      //   // 1.获取数组的长度
+      //   var length = this.array.length
+
+      //   // 2.根据长度计算增量
+      //   var gap = Math.floor(length / 2)
+
+      //   // 3.增量不断变量小, 大于0就继续排序
+      //   while (gap > 0) {
+      //     // 4.实现插入排序
+      //     for (var i = gap; i < length; i++) {
+      //       // 4.1.保存临时变量
+      //       var j = i
+      //       var temp = this.array[i]
+
+      //       // 4.2.插入排序的内存循环
+      //       while (j > gap - 1 && this.array[j - gap] > temp) {
+      //         this.array[j] = this.array[j - gap]
+      //         j -= gap
+      //       }
+
+      //       // 4.3.将选出的j位置设置为temp
+      //       this.array[j] = temp
+      //     }
+
+      //     // 5.重新计算新的间隔
+      //     gap = Math.floor(gap / 2)
+      //   }
+      // }
 
       ArrayList.prototype.swap = function (m, n) {
         var temp = this.array[m]
@@ -190,12 +207,12 @@
     //    alert(list) // 2,3,4,5,6,10,11
 
     // 测试插入排序
-    list.insertionSort()
-    alert(list) // 2,3,4,5,6,10,11
+    // list.insertionSort()
+    // alert(list) // 2,3,4,5,6,10,11
 
     // 测试希尔排序
-    //    list.shellSort()
-    //    alert(list)
+    list.shellSort()
+    alert(list)
 
     // 测试中位数选取
     //    // 原来的数组: 3,6,4,2,11,10,5

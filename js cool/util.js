@@ -3,6 +3,29 @@ import config from "../config/index.js";
 let debugLog = (function () {
   return config.IS_DEBUG ? console.log : function () {};
 })();
+
+
+/**
+ * @description: js保留两位小数，自动补充零(四舍五入 Math.round控制) https://www.jb51.net/article/134067.htm
+ * @param {str || value} 
+ * @return {str}
+ */
+function returnFloat(value) {
+  // 保留两位小数，或整数
+  var value = Math.round(value * 100) / 100;
+  // 处理0的情况
+  var xsd = value.toString().split(".");
+  if (xsd.length == 1) {
+    value = value.toString() + ".00";
+    return value;
+  }
+  if (xsd.length > 1) {
+    if (xsd[1].length < 2) {
+      value = value.toString() + "0";
+    }
+    return value;
+  }
+}
 /**
  * 时间戳或标准时间转为2002-01-11 等指定格式
  * @param {*} time
