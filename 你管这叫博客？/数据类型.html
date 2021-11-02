@@ -1,0 +1,53 @@
+<script>
+  /**
+   1、js中的数据类型
+基本数据类型(值直接存储在栈内存)：Undefined,Boolean、Null,Number、String，Symbol
+引用数据类型 (栈内存存储指向堆内存的指针,堆内存存储值)：Object,,function,Array
+   */
+  let bool = true;
+  let num = 1;
+  let str = 'abc';
+  let und = undefined;
+  let nul = null;
+  let arr = [1, 2, 3, 4];
+  let obj = {
+    name: 'xiaoming',
+    age: 22
+  };
+  let fun = function () {
+    console.log('hello')
+  };
+  let s1 = Symbol();
+
+  /**
+   * @description: typeof
+  typeof可以识别出基本类型boolean,number,undefined,string,symbol，但是不能识别null。不能识别引用数据类型，会把null、array、object统一归为object类型,但是可以识别出function。
+所以typeof可以用来识别一些基本类型和函数
+
+   */
+  console.log(typeof bool); //boolean
+  console.log(typeof num); //number
+  console.log(typeof str); //string
+  console.log(typeof und); //undefined
+  console.log(typeof nul); //object
+  console.log(typeof arr); //object
+  console.log(typeof obj); //object
+  console.log(typeof fun); //function
+  console.log(typeof s1); //symbol
+
+
+  /**
+   * @description: 
+  instanceof不能识别出基本的数据类型 number、boolean、string、undefined、null、symbol
+  但是可以检测出引用类型 同时对于是使用new声明的类型，它还可以检测出多层继承关系
+   */
+  console.log(bool instanceof Boolean); // false
+  console.log(num instanceof Number); // false
+  console.log(str instanceof String); // false
+  console.log(und instanceof Object); // false
+  console.log(nul instanceof Object); // false
+  console.log(arr instanceof Array); // true
+  console.log(obj instanceof Object); // true
+  console.log(fun instanceof Function); // true
+  console.log(s1 instanceof Symbol); // false
+</script>

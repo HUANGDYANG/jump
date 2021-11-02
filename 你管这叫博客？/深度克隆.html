@@ -8,22 +8,34 @@
 
 <body>
   <script>
-    function deepClone(obj) {
-      // debugger
-
-      let newObj = obj instanceof Array ? [] : {}
-      for (let key in obj) {
-        newObj[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key]
+    // 完整的深度克隆
+    function deepClone(obj = {}) {
+      // 基本数据类型或函数 直接返回
+      if (obj === null || typeof obj !== 'object') {
+        return obj
       }
-      return newObj
+      // 判断是对象还是数组
+      let result = obj instanceof Array ? [] : {}
+      for (const k in obj) {
+        // 不是原型练的属性则保存
+        if (obj.hasOwnProperty(k)) {
+          result[k] = deepClone(obj[k])
+        }
+      }
+      return result
     }
 
+    // 不能复制方法
     function deepClone1(obj) {
       var _obj = JSON.stringify(obj),
         objClone = JSON.parse(_obj);
       return objClone;
     }
     const obj = {
+      test: null,
+      fn: function () {
+        return obj
+      },
       "data": [{
         "delivery_time": "2017-08-07 15:09:53",
         "sell_record_code": "1705110288575",
