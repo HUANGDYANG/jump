@@ -1,10 +1,10 @@
 <!--
  * @Author: HUANGDYANG
  * @Date: 2021-06-10 08:53:12
- * @LastEditTime: 2021-07-15 17:18:42
+ * @LastEditTime: 2021-11-05 17:52:33
  * @LastEditors: HUANGDYANG
  * @Description: 
- * @FilePath: \jump\d3\map封装.html
+ * @FilePath: \jump\前端进阶\map封装.html
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -22,13 +22,13 @@
       if (typeof fn == 'function') {
         var k = 0;
         var len = this.length;
-        debugger
+        // debugger
         // 封装for循环过程
         for (; k < len; k++) {
           // 将每一项的运算操作丢进fn里，利用call方法指定fn的this指向与具体参数
           // debugger
           temp.push(fn.call(context, this[k], k, this))
-          debugger
+          // debugger
         }
       } else {
         console.error('TypeError: ' + fn + ' is not a function.');
@@ -40,8 +40,11 @@
 
     var newArr = [1, 2, 3, 4]._map(function (item, i) {
       // debugger
-      return item + 1;
-    }, window)
+      return this.a + item + 1;
+    }, {
+      a: 'a',
+      b: 'b'
+    })
 
     console.log(newArr);
   </script>

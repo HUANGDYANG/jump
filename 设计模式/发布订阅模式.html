@@ -1,0 +1,63 @@
+<!--
+ * @Author: HUANGDYANG
+ * @Date: 2021-11-05 15:14:30
+ * @LastEditTime: 2021-11-05 15:29:37
+ * @LastEditors: HUANGDYANG
+ * @Description: 
+ 当你负责的模块，基本满足以下情况时,使用发布订阅模式
+
+各模块相互独立
+存在一对多的依赖关系
+依赖模块不稳定、依赖关系不稳定
+各模块由不同的人员、团队开发
+ * @FilePath: \jump\设计模式\发布订阅模式.html
+-->
+
+<script>
+  const EventEmit = function () {
+    this.events = {};
+    this.on = function (name, cb) {
+      if (this.events[name]) {
+        // 添加数组
+        this.events[name].push(cb);
+      } else {
+        this.events[name] = [cb];
+      }
+    };
+    this.trigger = function (name, ...arg) {
+      if (this.events[name]) {
+        this.events[name].forEach(eventListener => {
+          eventListener(...arg);
+        });
+      }
+    };
+  };
+  let event = new EventEmit();
+
+  event.on('success', (...rest) => {
+    console.log('更新消息中心', rest)
+  })
+  event.on('success', () => {
+    console.log('更新订单信息')
+  })
+  event.on('fail', () => {
+    console.log('更新订单信息失败')
+  })
+  event.trigger('success', 1111, 222);
+
+  // MessageCenter.fetch() {
+  //   event.on('success', () => {
+  //     console.log('更新消息中心');
+  //   });
+  // }
+  // Order.update() {
+  //   event.on('success', () => {
+  //     console.log('更新订单信息');
+  //   });
+  // }
+  // Checker.alert() {
+  //   event.on('success', () => {
+  //     console.log('通知管理员');
+  //   });
+  // }
+</script>

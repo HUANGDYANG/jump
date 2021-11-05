@@ -1,0 +1,85 @@
+<script>
+  // 没有使用策略模式的权限判断
+  function checkAuth(data) {
+    if (data.role !== 'juejin') {
+      console.log('不是掘金用户');
+      return false;
+    }
+    if (data.grade < 1) {
+      console.log('掘金等级小于 1 级');
+      return false;
+    }
+    if (data.job !== 'FE') {
+      console.log('不是前端开发');
+      return false;
+    }
+    if (data.type !== 'eat melons') {
+      console.log('不是吃瓜群众');
+      return false;
+    }
+  }
+  // 策略模式
+  // 什么时候用策略模式？
+  // 当你负责的模块，基本满足以下情况时：
+
+  // 各判断条件下的策略相互独立且可复用
+  // 策略内部逻辑相对复杂
+  // 策略需要灵活组合 例如： 表单验证
+
+  // 维护权限列表
+  const jobList = ['FE', 'BE'];
+
+  // 策略
+  var strategies = {
+    checkRole: function (value) {
+      return value === 'juejin';
+    },
+    checkGrade: function (value) {
+      return value >= 1;
+    },
+    checkJob: function (value) {
+      return jobList.indexOf(value) > 1;
+    },
+    checkEatType: function (value) {
+      return value === 'eat melons';
+    }
+  };
+
+  // 校验规则
+  var Validator = function () {
+    this.cache = [];
+
+    // 添加策略事件
+    this.add = function (value, method) {
+      this.cache.push(function () {
+        return strategies[method](value);
+      });
+    };
+
+    // 检查
+    this.check = function () {
+      for (let i = 0; i < this.cache.length; i++) {
+        let valiFn = this.cache[i];
+        var data = valiFn(); // 开始检查
+        if (!data) {
+          return false;
+        }
+      }
+      return true;
+    };
+  };
+  // 小彭使用策略模式进行操作
+  var compose1 = function () {
+    var validator = new Validator();
+    const data1 = {
+      role: 'juejin',
+      grade: 3
+    };
+    validator.add(data1.role, 'checkRole');
+    validator.add(data1.grade, 'checkGrade');
+    const result = validator.check();
+    return result;
+  };
+
+  console.log(compose1());
+</script>
