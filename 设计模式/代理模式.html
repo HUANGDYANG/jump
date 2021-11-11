@@ -1,0 +1,60 @@
+<!--
+ * @Author: HUANGDYANG
+ * @Date: 2021-11-08 09:04:20
+ * @LastEditTime: 2021-11-08 10:12:41
+ * @LastEditors: HUANGDYANG
+ * @Description: 
+ * @FilePath: \jump\设计模式\代理模式.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+  /**
+   * @description: 
+   * 模块职责单一且可复用
+两个模块间的交互需要一定限制关系
+   * @param {*}
+   * @return {*}
+   */
+  // 本体
+  var domImage = (function () {
+    var imgEle = document.createElement('img');
+    document.body.appendChild(imgEle);
+    return {
+      setSrc: function (src) {
+        imgEle.src = src;
+      }
+    };
+  })();
+
+  // 代理
+  var proxyImage = (function () {
+    var img = new Image();
+    img.onload = function () {
+      domImage.setSrc(this.src); // 图片加载完设置真实图片src
+      debugger
+    };
+    return {
+      setSrc: function (src) {
+        domImage.setSrc('../image/loading.jpg'); // 预先设置图片src为loading图
+        img.src = src;
+      }
+    };
+  })();
+
+  // 外部调用
+  proxyImage.setSrc('./product.png');
+</script>

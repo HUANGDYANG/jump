@@ -1,7 +1,7 @@
 /*
  * @Author: HUANGDYANG
  * @Date: 2021-06-10 08:53:12
- * @LastEditTime: 2021-10-18 15:41:20
+ * @LastEditTime: 2021-11-09 13:59:17
  * @LastEditors: HUANGDYANG
  * @Description:
  * ，
@@ -25,16 +25,19 @@ function getone(x) {
 
 const arr = [1, 2];
 const reslut = [];
-// foreach(里面的函数并发执行) 不会按顺序返回
+// foreach(里面的函数并发执行) 这里不会按顺序返回
 async function FEtest() {
   arr.forEach(async (element) => {
     // console.log(element)
     const str = await getone(element);
     console.log(str);
-    reslut.push(str);
+    reslut.push(await str);
+    console.log(reslut);
   });
 }
-FEtest(); // foreach测试
+// FEtest();
+
+// for测试(继发执行，炒作耗时)
 const resulttwo = [];
 async function fortest() {
   for (let i = 1; i <= 2; i++) {
@@ -45,20 +48,27 @@ async function fortest() {
 
   // console.log(resulttwo)
 }
-// 其他循环(里面的函数继发执行)可以按顺序返回
+// for for of for in循环(里面的函数并发执行)可以按顺序返回
 // fortest();
 
 const resultthree = [];
 async function mapTest() {
+  // map并发执行 async函数返回promise，继发返回
   const mapPromise = arr.map(async (x) => {
     const response = await getone(x);
+    console.log('response: ', response);
     return response;
   });
-
+  // console.log('mapPromise', mapPromise); 
   for (const y of mapPromise) {
-    console.log(y);
+    console.log('mapPromise', mapPromise);
+
+    console.log('mapPromiseItem:', y);
+    console.log('await mapPromiseItem:', await y);
     resultthree.push(await y);
   }
-  console.log(resultthree);
+  console.log('result:', resultthree);
 }
-// mapTest()
+
+
+mapTest()

@@ -1,0 +1,70 @@
+<!--
+ * @Author: HUANGDYANG
+ * @Date: 2021-11-11 15:31:33
+ * @LastEditTime: 2021-11-11 16:14:25
+ * @LastEditors: HUANGDYANG
+ * @Description: 
+ * @FilePath: \jump\vue\watch.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="vue.js"></script>
+
+</head>
+
+<body>
+  <div id="app">
+    <p>改变两个值：</p>
+    <button @click='changeValue'>改变</button>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+
+      data() {
+        return {
+          name: 'John Doe',
+          books: {
+            a: 'a',
+            b: 'b'
+          },
+          booksArr: [1, 2, 3]
+        }
+      },
+      methods: {
+        changeValue() {
+          this.name = '改变后的值'
+          this.books['a'] = '改变后的值'
+          this.booksArr.push('改变后')
+        }
+      },
+      // 对于引用类型vue返回一个新的地址，所以拿不到旧的值，基本类型则可以
+      watch: {
+        name(newValue, oldValue) {
+          console.log('watchValue', newValue);
+        },
+        books: {
+          deep: true,
+          handler(newValue, oldValue) {
+            console.log('deep watchValue', oldValue, newValue);
+          }
+        },
+        booksArr: {
+          deep: true,
+          handler(newValue, oldValue) {
+            debugger
+            console.log('deep watchValue', oldValue, newValue);
+          }
+        },
+      }
+    })
+  </script>
+</body>
+
+</html>

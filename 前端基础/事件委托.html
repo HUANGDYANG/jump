@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        div {
-            width: 33.3%;
-            height: 100px;
-            border: 1px solid #000;
-            float: left;
-            box-sizing: border-box;
-        }
-
-    </style>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    div {
+      width: 33.3%;
+      height: 100px;
+      border: 1px solid #000;
+      float: left;
+      box-sizing: border-box;
+    }
+  </style>
 </head>
-<body>
-<div></div>
-<div></div>
-<div></div>
 
-<ul id="ul">
-    <li>1</li>
+<body>
+  <div></div>
+  <div></div>
+  <div></div>
+
+  <ul id="ul">
+    <li class="lil">1</li>
     <li>2</li>
     <li>3</li>
     <li></li>
@@ -30,23 +31,53 @@
     <li></li>
     <li></li>
     <li></li>
-</ul>
-<script>
-var oUl = ul;
-var aLi = oUl.children
-    oUl.addEventListener('click',function (ev) {
-        // var ev = ev || window.event
-        // var target = ev.target || ev.srcElemnt;
-        // console.log(ev.target);
-        for(let i=0, len=aLi.length;i<len ; i++) {
-            // if(aLi[i] == target) {
-            //     console.log(aLi[i],i)
-            // }
-            if(ev.target == aLi[i]) {
-                console.log(ev.target.innerHTML,i);
-            }
-        }
-    })
-</script>
+  </ul>
+  <script>
+    // var oUl = ul;
+    // var aLi = oUl.children
+    // oUl.addEventListener('click',function (ev) {
+    //     // var ev = ev || window.event
+    //     // var target = ev.target || ev.srcElemnt;
+    //     // console.log(ev.target);
+    //     for(let i=0, len=aLi.length;i<len ; i++) {
+    //         // if(aLi[i] == target) {
+    //         //     console.log(aLi[i],i)
+    //         // }
+    //         if(ev.target == aLi[i]) {
+    //             console.log(ev.target.innerHTML,i);
+    //         }
+    //     }
+    // })
+
+    const oUl = document.getElementById('ul')
+    // 通用事件代理函数
+    function bindEvent(elem, type, fn, selector) {
+      if (selector) {
+        elem.addEventListener(type, (e) => {
+          const target = e.target
+          // debugger
+          if (target.matches(selector)) {
+            console.log(this);
+
+            fn.call(target, e)
+          }
+        })
+      } else {
+        elem.addEventListener(type, (e) => {
+          fn.call(target, e)
+        })
+      }
+    }
+    // this指向绑定的元素
+    bindEvent(oUl, 'click', function (e) {
+      console.log(this);
+      alert(this.innerHTML)
+    }, 'li')
+    // this 指向window
+    bindEvent(oUl, 'click', (e) => {
+      console.log(this);
+    }, '.lil')
+  </script>
 </body>
+
 </html>

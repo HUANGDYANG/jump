@@ -86,6 +86,14 @@ function deleteHtmlTag(str) {
 /**
  * 定时器
  * @param {*} s 秒数
+ * // 用法
+async function one2FiveInAsync() {
+  for(let i = 1; i <= 5; i++) {
+    console.log(i);
+    await sleep(1000);
+  }
+}
+
  */
 function sleep(s) {
   return new Promise((resolve, reject) => {
