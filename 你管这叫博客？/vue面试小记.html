@@ -1,11 +1,15 @@
 <!--
  * @Author: HUANGDYANG
  * @Date: 2021-11-11 16:28:36
- * @LastEditTime: 2021-11-11 16:48:20
+ * @LastEditTime: 2021-11-12 16:16:38
  * @LastEditors: HUANGDYANG
  * @Description: 
  * @FilePath: \jump\你管这叫博客？\vue面试小记.html
 -->
 1，v-for 与 v-if 最好不要一起使用，一起使用会判断多次，性能不好
 2,vue 里事件对象是原生的($event),事件绑定到当前元素
-3，
+3，vue组件销毁前后的回调，常用于处理一些具有负面影响的代码，如定时器，事件监听等。他们的不同就是内部环境的不同，beforeDestroy时实例还未销毁，仍然完全可用，destroyed时，此时Vue
+实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。
+4,新建一个vue实例可以实现任意组件的通信(因为vue实例内部实现了自定义事件)
+5,父子组件执行顺序：父created 》子created 》子mounted 》 父mounted,更新和摧毁组件同理
+6,keep-alive使用场景 比较复杂的组件不想重新渲染时使用(比如tabs 里的内容很复杂)
