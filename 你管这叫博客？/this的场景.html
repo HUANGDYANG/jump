@@ -1,0 +1,19 @@
+<script>
+  //  this的指向，是在函数被调用的时候确定的。也就是执行上下文被创建时确定的。
+  // 全局环境中的this，指向它本身
+  // 如果调用者函数，被某一个对象所拥有，那么该函数在调用时，内部的this指向该对象。如果函数独立调用，那么该函数内部的this，则指向undefined。但是在非严格模式中，当this指向undefined时，它会被自动指向全局对象。
+  // 构造函数的this，指向了新的实例对象
+
+
+  // 函数中this例子
+  var a = 20;
+
+  function getA() {
+    return this.a;
+  }
+  var foo = {
+    a: 10,
+    getA: getA
+  }
+  console.log(foo.getA()); // 10
+</script>

@@ -1,0 +1,54 @@
+<script>
+  /*
+一个线程中，事件循环是唯一的，但是任务队列可以拥有多个。
+任务队列又分为macro-task（宏任务）与micro-task（微任务），在最新标准中，它们被分别称为task与jobs。
+macro-task大概包括：script(整体代码), setTimeout, setInterval, setImmediate, I/O, UI rendering。
+micro-task大概包括: process.nextTick, Promise, Object.observe(已废弃), MutationObserver(html5新特性)
+
+setTimeout/Promise等我们称之为任务源。而进入任务队列的是他们指定的具体执行任务
+来自不同任务源的任务会进入到不同的任务队列。其中setTimeout与setInterval是同源的。
+事件循环的顺序，决定了JavaScript代码的执行顺序。它从script(整体代码)开始第一次循环。之后全局上下文进入函数调用栈。直到调用栈清空(只剩全局)，然后执行所有的micro-task。当所有可执行的micro-task执行完毕之后。循环再次从macro-task开始，找到其中一个任务队列执行完毕，然后再执行所有的micro-task，这样一直循环下去。
+其中每一个任务的执行，无论是macro-task还是micro-task，都是借助函数调用栈来完成。
+详细参考： https://www.jianshu.com/p/12b9f73c5a4f
+ */
+
+
+  // 例子
+  // 首先，事件循环从宏任务队列开始，这个时候，宏任务队列中，只有一个script(整体代码)任务。每一个任务的执行顺序，都依靠函数调用栈来搞定，而当遇到任务源时，则会先分发任务到对应的队列中去
+  console.log('golb1');
+  //第二， script任务执行时首先遇到了setTimeout，setTimeout为一个宏任务源，那么他的作用就是将任务分发到它对应的队列中
+  setTimeout(function () {
+    console.log('timeout1');
+    new Promise(function (resolve) {
+      console.log('timeout1_promise');
+      resolve();
+    }).then(function () {
+      console.log('timeout1_then')
+    })
+  })
+  //第三 Promise构造函数中的第一个参数，是在new的时候执行，因此不会进入任何其他的队列，而是直接在当前任务直接执行了，而后续的.then则会被分发到micro-task的Promise队列中去。
+  new Promise(function (resolve) {
+    console.log('glob1_promise');
+    resolve();
+  }).then(function () {
+    console.log('glob1_then')
+  })
+
+  setTimeout(function () {
+    console.log('timeout2');
+    new Promise(function (resolve) {
+      console.log('timeout2_promise');
+      resolve();
+    }).then(function () {
+      console.log('timeout2_then')
+    })
+  })
+  new Promise(function (resolve) {
+    console.log('glob2_promise');
+    resolve();
+  }).then(function () {
+    console.log('glob2_then')
+  })
+  //第四 第一个宏任务script执行完毕之后，就开始执行所有的可执行的微任务。这个时候，微任务中，有Promise队列中的glob1_then和glob2_then，因此直接执行就行了
+  //第五 当所有的micro-tast执行完毕之后，表示第一轮的循环就结束了。这个时候就得开始第二轮的循环。第二轮循环仍然从宏任务macro-task开始。
+</script>
