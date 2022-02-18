@@ -1,87 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Title</title>
-    <style></style>
-  </head>
 
-  <body>
-    <script>
-      // demo02
-      console.log("golb1");
+<head>
+  <meta charset="UTF-8" />
+  <title>Title</title>
+  <style></style>
+</head>
 
-      setTimeout(function () {
-        console.log("timeout1");
-        process.nextTick(function () {
-          console.log("timeout1_nextTick");
-        });
-        new Promise(function (resolve) {
-          console.log("timeout1_promise");
-          resolve();
-        }).then(function () {
-          console.log("timeout1_then");
-        });
-      });
+<body>
+  <script>
+    function deepClone1(obj) {
+      // debugger
 
-      setImmediate(function () {
-        console.log("immediate1");
-        process.nextTick(function () {
-          console.log("immediate1_nextTick");
-        });
-        new Promise(function (resolve) {
-          console.log("immediate1_promise");
-          resolve();
-        }).then(function () {
-          console.log("immediate1_then");
-        });
-      });
+      let newObj = obj instanceof Array ? [] : {}
+      for (let key in obj) {
+        newObj[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key]
+      }
+      return newObj
+    }
 
-      process.nextTick(function () {
-        console.log("glob1_nextTick");
-      });
-      new Promise(function (resolve) {
-        console.log("glob1_promise");
-        resolve();
-      }).then(function () {
-        console.log("glob1_then");
-      });
+    function deepClone(obj) {
+      if (obj == null || typeof obj !== 'object') {
+        return obj
+      }
+      let res = obj instanceof Array ? [] : {}
+      for (const k in obj) {
+        res[k] = deepClone(obj[k])
+      }
+      return res
+    }
+    const obj = {
+      test: null,
+      fn: function () {
+        return obj
+      },
+      "data": [{
+        "delivery_time": "2017-08-07 15:09:53",
+        "sell_record_code": "1705110288575",
+        "order_remark": "已开票",
+        "pay_status": "0",
+        "detail_list": [{
+          "deal_code": "201703250088",
+          "sell_record_code": "1705110288575",
+          "spec1_code": "-350f",
+          "is_gift": "0"
+        }],
+        "filter": {
+          "page_size": 10,
+          "record_count": "178",
+          "page": 1,
+          "start_notice_time": "2017-08-01 00:00:00",
+          "end_notice_time": "2017-08-10 23:59:59",
+          "order_status": "1",
+          "page_count": 18
+        }
+      }]
+    }
 
-      setTimeout(function () {
-        console.log("timeout2");
-        process.nextTick(function () {
-          console.log("timeout2_nextTick");
-        });
-        new Promise(function (resolve) {
-          console.log("timeout2_promise");
-          resolve();
-        }).then(function () {
-          console.log("timeout2_then");
-        });
-      });
+    console.log(deepClone1(obj));
+  </script>
+</body>
 
-      process.nextTick(function () {
-        console.log("glob2_nextTick");
-      });
-      new Promise(function (resolve) {
-        console.log("glob2_promise");
-        resolve();
-      }).then(function () {
-        console.log("glob2_then");
-      });
-
-      setImmediate(function () {
-        console.log("immediate2");
-        process.nextTick(function () {
-          console.log("immediate2_nextTick");
-        });
-        new Promise(function (resolve) {
-          console.log("immediate2_promise");
-          resolve();
-        }).then(function () {
-          console.log("immediate2_then");
-        });
-      });
-    </script>
-  </body>
 </html>

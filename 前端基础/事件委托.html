@@ -24,9 +24,9 @@
     <li class="lil">1</li>
     <li>2</li>
     <li>3</li>
-    <li></li>
-    <li></li>
-    <li></li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
     <li></li>
     <li></li>
     <li></li>
@@ -57,7 +57,7 @@
           const target = e.target
           // debugger
           if (target.matches(selector)) {
-            console.log(this);
+            // console.log(this);
 
             fn.call(target, e)
           }
@@ -68,14 +68,14 @@
         })
       }
     }
-    // this指向绑定的元素
+    // this指向触发的元素
     bindEvent(oUl, 'click', function (e) {
-      console.log(this);
-      alert(this.innerHTML)
+      console.log("普通函数：", this);
+      // alert(this.innerHTML)
     }, 'li')
     // this 指向window
     bindEvent(oUl, 'click', (e) => {
-      console.log(this);
+      console.log('剪头函数：', this);
     }, '.lil')
   </script>
 </body>

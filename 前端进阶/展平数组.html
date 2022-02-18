@@ -1,26 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<script>
-    let arr = [[1, 2], 3, [[4], 5]]
 
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<body>
+  <script>
+    let arr = [
+      [1, 2], 3, [
+        [4], 5
+      ]
+    ]
+    //  难理解
     function flatten(arr) {
-        // console.log(...arr);
-        return [].concat(
-            // ...运算是map之后进行的,map函数返回数组
-            ...arr.map(x => {
-                    // debugger
-                    return Array.isArray(x) ? flatten(x) : x
-                }
-            )
-        )
+      // console.log(...arr);
+      return [].concat(
+        // ...运算是map之后进行的,map函数返回数组
+        ...arr.map(x => {
+          // debugger
+          return Array.isArray(x) ? flatten(x) : x
+        })
+      )
     }
 
-    console.log(flatten(arr));
-</script>
+    // console.log(flatten(arr));
+    function flat(arr) {
+      // 判断arr里面是否有数组
+      let isDeep = arr.some((item) => {
+        return item instanceof Array
+      })
+
+      if (!isDeep) {
+        return arr
+      }
+      // concat会展开二维数组
+      const res = Array.prototype.concat.apply([], arr)
+      return flat(res)
+
+    }
+    const res = flat(arr)
+    console.log(res);
+  </script>
 </body>
+
 </html>
