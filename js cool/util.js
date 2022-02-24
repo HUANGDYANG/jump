@@ -26,6 +26,18 @@ function returnFloat(value) {
     return value;
   }
 }
+/* 时区格式转为 2002-01-11 09:00 */
+
+function formatDate(date) {
+  var arr = date.split("T");
+  if (arr.length == 1) {
+    return arr[0];
+  }
+  var d = arr[0];
+  var t = arr[1].split(":");
+  var dd = d + " " + t[0] + ":" + t[1];
+  return dd;
+}
 /**
  * 时间戳或标准时间转为2002-01-11 等指定格式
  * @param {*} time
