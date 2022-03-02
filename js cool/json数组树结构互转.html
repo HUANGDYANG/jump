@@ -59,7 +59,7 @@
     }
     console.log(jsonToArray(treedata));
 
-    // 时间长，空间少的算法，同样修改了原数组对象
+    // json转树,时间长，空间少的算法，同样修改了原数组对象
     function changeTree(data) {
       if (data.length > 0) {
         data.forEach((item) => {
@@ -120,7 +120,7 @@
     console.log(changeTreeData);
 
     /**
-     * 此算法有点东西,但修改了原数组对象
+     * 此算法复杂,但修改了原数组对象
      * json格式转树状结构
      * @param   {json}      json数据
      * @param   {String}    id的字符串

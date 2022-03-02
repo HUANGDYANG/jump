@@ -7,7 +7,7 @@
  * @FilePath: \jump\你管这叫博客？\循环\for in.html
 -->
 <script>
-  // 1.for…in循环会遍历数组对象的原型链中所有的可枚举属性， hasOwnProperty函数来避免这一问题：
+  // 1.for…in循环(for of 不能循环对象)会遍历数组对象的原型链中所有的可枚举属性， hasOwnProperty函数来避免这一问题：
   Array.prototype.voice = "James Earl Jones";
 
   var tMinus = ["Two", "One", "Blast off!"];
