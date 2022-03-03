@@ -68,12 +68,10 @@
           if (parentId !== 0) {
             data.forEach((ele) => {
               if (ele.id === parentId) {
-                let childArray = ele.children;
-                if (!childArray) {
-                  childArray = [];
+                if (!ele.children) {
+                  ele.children = [];
                 }
-                childArray.push(item);
-                ele.children = childArray;
+                ele.children.push(item);
               }
             });
           }
@@ -97,9 +95,28 @@
         parentName: "",
       },
       {
+        id: 132,
+        name: "测试中",
+        parentId: 1,
+        parentName: "",
+      },
+
+      {
         id: 131,
         name: "子公司",
         parentId: 104,
+        parentName: "",
+      },
+      {
+        id: 134,
+        name: "测试中",
+        parentId: 132,
+        parentName: "",
+      },
+      {
+        id: 135,
+        name: "测试中",
+        parentId: 0,
         parentName: "",
       },
       {

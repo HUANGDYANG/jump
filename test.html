@@ -9,18 +9,8 @@
 
 <body>
   <script>
-    function deepClone1(obj) {
-      // debugger
-
-      let newObj = obj instanceof Array ? [] : {}
-      for (let key in obj) {
-        newObj[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key]
-      }
-      return newObj
-    }
-
-    function deepClone(obj) {
-      if (obj == null || typeof obj !== 'object') {
+    function deepClone(obj = {}) {
+      if (obj === null || typeof obj !== 'object') {
         return obj
       }
       let res = obj instanceof Array ? [] : {}
@@ -57,7 +47,7 @@
       }]
     }
 
-    console.log(deepClone1(obj));
+    console.log(deepClone(obj));
   </script>
 </body>
 
