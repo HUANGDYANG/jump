@@ -9,93 +9,92 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-      body {
-        height: 2000px;
-      }
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    body {
+      height: 2000px;
+    }
+  </style>
+</head>
 
-    </style>
-  </head>
-
-  <body>
-    <script>
-      // 函数防抖封装 类比电脑睡眠
-      function debounce(func, delay = 610, timer = null) {
-        return (...args) => {
-          // debugger
-          // 这里 args是滚动的事件对象
-          clearTimeout(timer)
-
-          timer = setTimeout(() => {
-            func(...args)
-          }, delay)
-          // console.log(timer);
-        }
-      }
-
-      // window.addEventListener('scroll', debounce(console.log))
-
-      // 函数防抖简单实现
-      var timer
-      function myDebounce() {
+<body>
+  <script>
+    // 函数防抖封装 触发后一段时间内没动作才执行
+    function debounce(func, delay = 610) {
+      let timer = null
+      return (...args) => {
+        // debugger
+        // 这里 args是滚动的事件对象
         clearTimeout(timer)
-        timer = setTimeout((params) => {
-          console.log('执行了log函数');
-        }, 1000)
-      }
-      // window.addEventListener('scroll', myDebounce)
 
-      //封装函数节流 多久后才能再一次执行
-      function throttle(func, delay = 60) {
-        if (typeof func !== 'function') {
-          throw ('参数必须是函数')
-        }
-        let lock = false
-        return (...args) => {
-          if (lock) {
-            return
-          }
-          func()
-          lock = true
-          setTimeout(() => {
-            lock = false
-          }, delay)
-        }
+        timer = setTimeout(() => {
+          func(...args)
+        }, delay)
+        // console.log(timer);
       }
-      window.addEventListener('scroll', throttle((e) => {
-        console.log('函数节流封装');
-        sum(1, 2, 3)
-      },
-        1000))
-      function sum(...rest) {
-        var total = 0
-        for (const item of rest) {
-          let data = Number(item)
-          if (!isNaN(data)) {
-            total += data
-          }
-        }
-        console.log('求和结果为：', total);
-      }
-      // 节流简单实现
-      let lock = false
+    }
 
-      function myThrottle(func) {
-        if (lock) return
+    window.addEventListener('scroll', debounce(console.log))
+
+    // 函数防抖简单实现
+    var timer
+
+    function myDebounce() {
+      clearTimeout(timer)
+      timer = setTimeout((params) => {
         console.log('执行了log函数');
-        lock = true
-        setTimeout((params) => {
-          lock = false
-        }, 1600)
+      }, 1000)
+    }
+    // window.addEventListener('scroll', myDebounce)
+
+    //封装函数节流 执行后一段时间才能再一次执行
+    function throttle(func, delay = 60) {
+      if (typeof func !== 'function') {
+        throw ('参数必须是函数')
       }
+      let lock = false
+      return (...args) => {
+        if (lock) {
+          return
+        }
+        func()
+        lock = true
+        setTimeout(() => {
+          lock = false
+        }, delay)
+      }
+    }
+    // window.addEventListener('scroll', throttle((e) => {
+    //     console.log('函数节流封装');
+    //     sum(1, 2, 3)
+    //   },
+    //   1000))
+
+    function sum(...rest) {
+      var total = 0
+      for (const item of rest) {
+        let data = Number(item)
+        if (!isNaN(data)) {
+          total += data
+        }
+      }
+      console.log('求和结果为：', total);
+    }
+    // 节流简单实现
+    let lock = false
+
+    function myThrottle(func) {
+      if (lock) return
+      console.log('执行了log函数');
+      lock = true
+      setTimeout((params) => {
+        lock = false
+      }, 1600)
+    }
     // window.addEventListener('scroll', myThrottle)
-
-
-
-    </script>
-  </body>
+  </script>
+</body>
 
 </html>

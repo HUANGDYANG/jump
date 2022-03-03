@@ -1,37 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Title</title>
-  </head>
 
-  <body>
-    <script>
-      // map等高阶函数不会循环未初始化数组
-      var mapArr = new Array(4);
-      mapArr.map((v) => {
-        console.log(v); //不会输出
-      });
-      var pointArr = [
-        {
-          point: { lng: 116.4, lat: 39.91 },
-          info: "毛泽东",
-          showWindowInfo: false,
+<head>
+  <meta charset="UTF-8" />
+  <title>Title</title>
+</head>
+
+<body>
+  <script>
+    // map等高阶函数不会循环未初始化数组,里面是undefined就会
+    var mapArr = new Array(4); //[空属性 × 4]
+    console.log('mapArr: ', mapArr);
+    mapArr.filter((v) => {
+      console.log(v); //不会输出
+    });
+    var pointArr = [{
+        point: {
+          lng: 116.4,
+          lat: 39.91
         },
-        {
-          info: "是真的强",
-          showWindowInfo: false,
-        },
-      ];
-      // map 默认会返回undefined
-      let res = pointArr.map((x) => {
-        if (x.point) {
-          return {
-            info: x.info || "未知地点",
-          };
-        }
-      });
-      console.log(res); //[0: {info: '毛泽东'} 1: undefined]
-    </script>
-  </body>
+        info: "毛泽东",
+        showWindowInfo: false,
+      },
+      {
+        info: "是真的强",
+        showWindowInfo: false,
+      },
+    ];
+    // map 默认会返回undefined
+    let res = pointArr.map((x) => {
+      if (x.point) {
+        return {
+          info: x.info || "未知地点",
+        };
+      }
+    });
+    console.log(res); //[0: {info: '毛泽东'} 1: undefined]
+  </script>
+</body>
+
 </html>
