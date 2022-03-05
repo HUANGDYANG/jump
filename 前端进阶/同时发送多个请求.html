@@ -29,12 +29,10 @@
     return new Promise((resolve, reject) => {
       // 同时请求maxNum个
       while (count < maxNum) {
-        debugger;
         next();
       }
 
       function next() {
-        debugger;
         let current = count++;
         // 处理边界条件
         if (current >= len) {
@@ -50,17 +48,19 @@
             result[current] = res;
             console.log(`完成 ${current}`, new Date().toLocaleString());
             // 请求没有全部完成, 就递归
-            if (current < len) {
-              next();
-            }
+            // if (current < len) {
+            next();
+            // }
           })
           .catch((err) => {
             console.log(`结束 ${current}`, new Date().toLocaleString());
             result[current] = err;
             // 请求没有全部完成, 就递归
-            if (current < len) {
-              next();
-            }
+            // if (current < len) {
+            next();
+            // }
+          }).finally((params) => {
+            console.log(current);
           });
       }
     });
