@@ -26,7 +26,7 @@
 
   const arr = [1, 2];
   const reslut = [];
-  // foreach(里面的函数并发执行) 但不会按顺序返回
+  // foreach(里面的函数并发执行) 不会按顺序返回
   async function FEtest() {
     arr.forEach(async (element) => {
       // console.log(element)
@@ -36,9 +36,9 @@
       console.log(reslut);
     });
   }
-  // FEtest();
+  FEtest();
 
-  // for测试(继发执行，所以耗时)
+  // for测试(继发执行，需要等待)
   const resulttwo = [];
   async function fortest() {
     for (let i = 1; i <= 2; i++) {
@@ -51,8 +51,19 @@
   }
   // for for of for in循环(里面的函数继发执行,耗时)可以按顺序返回
   // fortest();
+  const resultwhile = [];
 
+  let i = 1
 
+  async function whileTest() {
+    while (i < 3) {
+      const str = await getone(i);
+      console.log(str);
+      resultwhile.push(str);
+      i++
+    }
+  }
+  // whileTest()
 
   const resultthree = [];
   async function mapTest() {
@@ -74,5 +85,5 @@
   }
 
 
-  mapTest()
+  // mapTest()
 </script>

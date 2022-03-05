@@ -9,45 +9,24 @@
 
 <body>
   <script>
-    function deepClone(obj = {}) {
-      if (obj === null || typeof obj !== 'object') {
-        return obj
+    function throttle(fn, delay = 180) {
+      let lock = null
+      return function (param) {
+        if (lock) return
+        fn()
+        lock = true
+        setTimeout(() => {
+          lock = false
+        }, delay)
       }
-      let res = obj instanceof Array ? [] : {}
-      for (const k in obj) {
-        res[k] = deepClone(obj[k])
-      }
-      return res
-    }
-    const obj = {
-      test: null,
-      fn: function () {
-        return obj
-      },
-      "data": [{
-        "delivery_time": "2017-08-07 15:09:53",
-        "sell_record_code": "1705110288575",
-        "order_remark": "已开票",
-        "pay_status": "0",
-        "detail_list": [{
-          "deal_code": "201703250088",
-          "sell_record_code": "1705110288575",
-          "spec1_code": "-350f",
-          "is_gift": "0"
-        }],
-        "filter": {
-          "page_size": 10,
-          "record_count": "178",
-          "page": 1,
-          "start_notice_time": "2017-08-01 00:00:00",
-          "end_notice_time": "2017-08-10 23:59:59",
-          "order_status": "1",
-          "page_count": 18
-        }
-      }]
     }
 
-    console.log(deepClone(obj));
+    function sum(a, b) {
+      console.log(a, b);
+    }
+    window.addEventListener('mousemove', throttle((e) => {
+      sum(1, 2)
+    }, 1000))
   </script>
 </body>
 

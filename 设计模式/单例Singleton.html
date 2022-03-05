@@ -4,14 +4,17 @@
  * @LastEditTime: 2021-10-19 10:22:51
  * @LastEditors: HUANGDYANG
  * @Description: 
- Singleton 函数返回的总是同一个对象(最先初始化的那个)
+ Singleton 函数返回的总是同一个对象(最先初始化的那个)Vuex、Redux
  * @FilePath: \jump\设计模式\Singleton.html
 -->
 <script>
   var Singleton = (function () {
     var Singleton = null;
+
     function init(x) {
-      Singleton = { x };
+      Singleton = {
+        x
+      };
     }
     return function (x = 1) {
       if (!Singleton) {
@@ -23,4 +26,18 @@
   var a = Singleton(111);
   var b = Singleton(1);
   console.log(b); //111
+
+  // es6
+  class Singleton6 {
+    constructor() {
+      if (!Singleton.instance) {
+        // 将 this 挂载到单例上
+        Singleton.instance = this
+      }
+      return Singleton.instance
+    }
+  }
+  const a6 = new Singleton6()
+  const b6 = new Singleton6()
+  console.log(a6 === b6)
 </script>
