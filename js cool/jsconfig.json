@@ -1,0 +1,32 @@
+// 代码目录别称配置
+/*  vscode path-intellisense插件配置
+"path-intellisense.mappings":{
+    "@":"${workspaceFolder}/src/",
+    "@image":"${workspaceFolder}/src/assets/image"
+  }, */
+// jsconfig.json文件
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "allowSyntheticDefaultImports": false, //允许从没有默认导出的模块进行默认导入,这不会影响代码发出，只会影响类型检查。默认为true
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@image/*": ["src/assets/image/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
+/* 
+webpack配置：
+{configureWebpack:
+  resolve: {
+      alias: {
+        "@": resolvePath("src"),
+        "@icon": resolvePath("src/assets/icon"),
+        "@image": resolvePath("src/assets/image"),
+        "@css": resolvePath("src/assets/css"),
+      },
+    },
+  }
+*/
