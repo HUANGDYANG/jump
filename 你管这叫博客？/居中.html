@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div class="maiginAuto">
+    <div class="a">44444444444444444444所有方式都会溢出，另外处理</div>
+  </div>
+  <br>
+  <div class="transform">
+    <div class="a">13223424</div>
+  </div>
+  <br>
+  <div class="position">
+    <div class="a">落后的居中方式，性能没那么好</div>
+  </div>
+  <br>
+  <div class=" flex">
+    <div class="a">11111</div>
+    <div class="a">2222</div>
+  </div>
+
+
+</body>
+<style>
+  .maiginAuto {
+    width: 300px;
+    height: 300px;
+    background-color: red;
+    position: relative;
+  }
+
+  .maiginAuto .a {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+  .transform {
+    width: 300px;
+    height: 300px;
+    background-color: red;
+    position: relative;
+  }
+
+  .transform .a {
+    background-color: blue;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .position {
+    width: 300px;
+    height: 300px;
+    background-color: red;
+    position: relative;
+  }
+
+  .position .a {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -50px 0 0 -50px;
+  }
+
+  .flex {
+    /* width: 300px; */
+    height: 300px;
+    background-color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .flex .a {
+    background-color: blue;
+  }
+</style>
+
+</html>
